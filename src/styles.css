@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Open Sans", Arial, Helvetica, sans-serif;
+  --font-display: "Kumbh Sans", Arial, Helvetica, sans-serif;
+
+  --color-bg: #ffffff;
+  --color-fg: #131315;
+  --color-muted: #94979e;
+  --color-dim: #44464b;
+  --color-line: #f2f2f3;
+  --color-paper: #f7f8fa;
+  --color-card: #ffffff;
+  --color-accent: #e07641;
+  --color-accent-hot: #e0682c;
+  --color-brand: #e85d04;
+  --color-ink: #000000;
+  --color-inverse: #ffffff;
+  --color-shadow: rgb(0 0 0 / 0.07);
+
+  --color-cat-doga: #191970;
+  --color-cat-canli: #228b22;
+  --color-cat-tarih: #daa520;
+  --color-cat-bilim: #0074d9;
+  --color-cat-kultur: #001f3f;
+  --color-cat-fantastik: #ff7633;
+  --color-cat-gunluk: #09659b;
+  --color-cat-sizden: #ea3535;
+
+  --color-fb: #1877f2;
+  --color-ig-from: #f58529;
+  --color-pin: #e60023;
+
+  --shadow-post: 0 0 25px rgb(0 0 0 / 0.07);
+  --shadow-header: 0 0 15px rgb(0 0 0 / 0.1);
+  --radius-thumb: 8px;
+  --radius-pill: 100px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: var(--color-inverse);
+  }
+}
+
+@layer components {
+  .site-wrap {
+    width: min(1280px, calc(100% - 2rem));
+    margin-inline: auto;
+  }
+
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    color: var(--color-inverse);
+    font-family: var(--font-display);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .cat-pill[data-cat="doga-ve-evren"] {
+    background: var(--color-cat-doga);
+  }
+  .cat-pill[data-cat="canlilar-ve-ekosistem"] {
+    background: var(--color-cat-canli);
+  }
+  .cat-pill[data-cat="tarih-ve-medeniyet"] {
+    background: var(--color-cat-tarih);
+  }
+  .cat-pill[data-cat="bilim-ve-teknoloji"] {
+    background: var(--color-cat-bilim);
+  }
+  .cat-pill[data-cat="kultur-ve-sanat"] {
+    background: var(--color-cat-kultur);
+  }
+  .cat-pill[data-cat="fantastik"] {
+    background: var(--color-cat-fantastik);
+  }
+  .cat-pill[data-cat="gunluk-yasam"] {
+    background: var(--color-cat-gunluk);
+  }
+  .cat-pill[data-cat="sizden-gelenler"] {
+    background: var(--color-cat-sizden);
+  }
+
+  .cover-art[data-cat="doga-ve-evren"] {
+    --cover: #191970;
+    --cover-2: #3d5a80;
+  }
+  .cover-art[data-cat="canlilar-ve-ekosistem"] {
+    --cover: #1b4332;
+    --cover-2: #52b788;
+  }
+  .cover-art[data-cat="tarih-ve-medeniyet"] {
+    --cover: #7c4a03;
+    --cover-2: #daa520;
+  }
+  .cover-art[data-cat="bilim-ve-teknoloji"] {
+    --cover: #023e8a;
+    --cover-2: #48cae4;
+  }
+  .cover-art[data-cat="kultur-ve-sanat"] {
+    --cover: #1a120b;
+    --cover-2: #c9a227;
+  }
+  .cover-art[data-cat="fantastik"] {
+    --cover: #3d0814;
+    --cover-2: #ff7633;
+  }
+  .cover-art[data-cat="gunluk-yasam"] {
+    --cover: #023047;
+    --cover-2: #8ecae6;
+  }
+  .cover-art[data-cat="sizden-gelenler"] {
+    --cover: #6a040f;
+    --cover-2: #ea3535;
+  }
+
+  .cover-art {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 80% at 80% 20%, color-mix(in srgb, var(--cover-2) 55%, transparent), transparent 55%),
+      linear-gradient(160deg, var(--cover) 0%, color-mix(in srgb, var(--cover) 55%, black) 100%);
+  }
+
+  .cover-art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to top, rgb(0 0 0 / 0.55), transparent 55%),
+      repeating-linear-gradient(
+        -18deg,
+        transparent 0 14px,
+        rgb(255 255 255 / 0.04) 14px 15px
+      );
+    pointer-events: none;
+  }
+
+  .read-more {
+    font-family: var(--font-display);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+  }
+
+  .read-more:hover {
+    color: var(--color-accent);
+  }
+
+  .social-round {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    color: var(--color-inverse);
+    background: var(--color-ink);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .social-round:hover {
+    transform: translateY(-1px);
+    opacity: 0.86;
+  }
+
+  .input-line {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    background: transparent;
+    padding: 0.7rem 0;
+    font: inherit;
+    color: var(--color-fg);
+    outline: none;
+  }
+
+  .input-line:focus {
+    border-bottom-color: var(--color-fg);
+  }
+
+  .btn-black {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: var(--color-ink);
+    color: var(--color-inverse);
+    border: 0;
+    border-radius: var(--radius-pill);
+    padding: 0.7rem 1.4rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-black:hover {
+    background: #222;
+  }
+
+  .prose-yo p {
+    margin: 0 0 1.25rem;
+    color: #2c2d31;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .prose-yo h2 {
+    margin: 2rem 0 1rem;
+    font-size: 1.65rem;
+  }
+
+  .prose-yo h3 {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .prose-yo blockquote {
+    margin: 1.5rem 0;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--color-brand);
+    color: var(--color-dim);
+    font-style: italic;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

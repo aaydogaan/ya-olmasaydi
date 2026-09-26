@@ -1,0 +1,62 @@
+[
+  {
+    "id": "114",
+    "name": "Doğa ve Evren",
+    "slug": "doga-ve-evren",
+    "description": "Doğal olaylar ve evrenin sırları olmadan yaşamın nasıl şekilleneceğini sorguluyoruz."
+  },
+  {
+    "id": "115",
+    "name": "Canlılar ve Ekosistem",
+    "slug": "canlilar-ve-ekosistem",
+    "description": "Canlılar ve ekosistem olmadan dünya ve yaşam nasıl olurdu?"
+  },
+  {
+    "id": "116",
+    "name": "Tarih ve Medeniyet",
+    "slug": "tarih-ve-medeniyet",
+    "description": "Tarihteki büyük medeniyetler ve olayların yaşanmadığı alternatif bir dünya nasıl olurdu?"
+  },
+  {
+    "id": "117",
+    "name": "Bilim ve Teknoloji",
+    "slug": "bilim-ve-teknoloji",
+    "description": "Bu kategoride, teknolojik buluşlar ve bilimsel gelişmelerin yokluğunda dünyanın nasıl bir yer olacağını hayal ediyoruz."
+  },
+  {
+    "id": "118",
+    "name": "Kültür ve Sanat",
+    "slug": "kultur-ve-sanat",
+    "description": "Kültürel ve sanatsal yaratıcılığın olmadığı bir dünyada nasıl bir yaşam olurdu?"
+  },
+  {
+    "id": "119",
+    "name": "Günlük Yaşam",
+    "slug": "gunluk-yasam",
+    "description": "Günlük yaşamın temel parçaları olmadan hayat nasıl devam ederdi?"
+  },
+  {
+    "id": "120",
+    "name": "Fantastik",
+    "slug": "fantastik",
+    "description": "Gerçeklik sınırlarını aşarak fantastik dünyalarda alternatif gerçeklikleri keşfediyoruz."
+  },
+  {
+    "id": "146",
+    "name": "Sizden Gelenler ⭐️",
+    "slug": "sizden-gelenler",
+    "description": "Ziyaretçilerimizin hayal gücünü kullanarak önerdiği ve sitemizde yayınlanan özel içerikler. Fikirlerinizi paylaşarak, siz de bu hikayelere katkıda bulunabilirsiniz."
+  },
+  {
+    "id": "150",
+    "name": "Hayatın Nasıl Değişti",
+    "slug": "hayatin-nasil-degisti",
+    "description": ""
+  },
+  {
+    "id": "176",
+    "name": "Podcast",
+    "slug": "pod",
+    "description": "<span class=\"_fadeIn_m1hgl_8\">Yazıya </span><span class=\"_fadeIn_m1hgl_8\">sesi </span><span class=\"_fadeIn_m1hgl_8\">dahil </span><span class=\"_fadeIn_m1hgl_8\">ederek </span><span class=\"_fadeIn_m1hgl_8\">içeriklerimizi </span><span class=\"_fadeIn_m1hgl_8\">podcast </span><span class=\"_fadeIn_m1hgl_8\">formatında </span><span class=\"_fadeIn_m1hgl_8\">da </span><span class=\"_fadeIn_m1hgl_8\">keşfetmeni </span><span class=\"_fadeIn_m1hgl_8\">sağlıyoruz.</span>"
+  }
+]
