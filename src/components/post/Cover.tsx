@@ -22,7 +22,8 @@ export function Cover({
   mark?: boolean;
 }) {
   if (image) {
-    const src = image.startsWith("http") ? image : `/uploads/${image}`;
+    const cleanImg = image.replace(/^\/?uploads\//, "");
+    const src = image.startsWith("http") ? image : `https://cdn.yaolmasaydi.com/${cleanImg}`;
     return (
       <div className={cn("relative h-full w-full overflow-hidden bg-neutral-900", className)}>
         <img
