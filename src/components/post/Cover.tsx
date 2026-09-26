@@ -13,6 +13,7 @@ export function Cover({
   image,
   className,
   mark = true,
+  zoomOnHover = true,
 }: {
   category: string;
   slug: string;
@@ -20,6 +21,7 @@ export function Cover({
   image?: string | null;
   className?: string;
   mark?: boolean;
+  zoomOnHover?: boolean;
 }) {
   if (image) {
     const cleanImg = image.replace(/^\/?uploads\//, "");
@@ -29,7 +31,10 @@ export function Cover({
         <img
           src={src}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          className={cn(
+            "h-full w-full object-cover transition-transform duration-500",
+            zoomOnHover ? "hover:scale-105" : ""
+          )}
           loading="lazy"
         />
         {mark ? (

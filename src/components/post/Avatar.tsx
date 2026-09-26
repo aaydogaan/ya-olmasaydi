@@ -12,7 +12,19 @@ export function Avatar({
   link?: boolean;
 }) {
   const author = AUTHORS[slug];
-  const inner = (
+  const inner = author?.avatar ? (
+    <img
+      src={author.avatar}
+      alt={author.name}
+      width={size}
+      height={size}
+      className={cn(
+        "inline-block shrink-0 rounded-full object-cover border border-white/20 shadow-xs",
+      )}
+      style={{ width: size, height: size }}
+      loading="lazy"
+    />
+  ) : (
     <span
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-full bg-fg font-display font-semibold text-inverse",
@@ -21,7 +33,7 @@ export function Avatar({
       style={{ width: size, height: size }}
       aria-hidden="true"
     >
-      {author.initials}
+      {author?.initials || "YA"}
     </span>
   );
   if (!link) return inner;

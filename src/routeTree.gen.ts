@@ -24,6 +24,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminYeniYaziRouteImport } from './routes/admin/yeni-yazi'
 import { Route as AuthorSlugRouteImport } from './routes/author/$slug'
 import { Route as KategoriSlugRouteImport } from './routes/kategori/$slug'
+import { Route as PagePageRouteImport } from './routes/page/$page'
 import { Route as AdminDuzenleIdRouteImport } from './routes/admin/duzenle/$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -102,6 +103,11 @@ const KategoriSlugRoute = KategoriSlugRouteImport.update({
   path: '/kategori/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagePageRoute = PagePageRouteImport.update({
+  id: '/page/$page',
+  path: '/page/$page',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDuzenleIdRoute = AdminDuzenleIdRouteImport.update({
   id: '/admin/duzenle/$id',
   path: '/admin/duzenle/$id',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/admin/yeni-yazi': typeof AdminYeniYaziRoute
   '/author/$slug': typeof AuthorSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
+  '/page/$page': typeof PagePageRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/duzenle/$id': typeof AdminDuzenleIdRoute
 }
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/admin/yeni-yazi': typeof AdminYeniYaziRoute
   '/author/$slug': typeof AuthorSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
+  '/page/$page': typeof PagePageRoute
   '/admin': typeof AdminIndexRoute
   '/admin/duzenle/$id': typeof AdminDuzenleIdRoute
 }
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/admin/yeni-yazi': typeof AdminYeniYaziRoute
   '/author/$slug': typeof AuthorSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
+  '/page/$page': typeof PagePageRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/duzenle/$id': typeof AdminDuzenleIdRoute
 }
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/admin/yeni-yazi'
     | '/author/$slug'
     | '/kategori/$slug'
+    | '/page/$page'
     | '/admin/'
     | '/admin/duzenle/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/admin/yeni-yazi'
     | '/author/$slug'
     | '/kategori/$slug'
+    | '/page/$page'
     | '/admin'
     | '/admin/duzenle/$id'
   id:
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/admin/yeni-yazi'
     | '/author/$slug'
     | '/kategori/$slug'
+    | '/page/$page'
     | '/admin/'
     | '/admin/duzenle/$id'
   fileRoutesById: FileRoutesById
@@ -235,6 +247,7 @@ export interface RootRouteChildren {
   AdminYeniYaziRoute: typeof AdminYeniYaziRoute
   AuthorSlugRoute: typeof AuthorSlugRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
+  PagePageRoute: typeof PagePageRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminDuzenleIdRoute: typeof AdminDuzenleIdRoute
 }
@@ -346,6 +359,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategoriSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/page/$page': {
+      id: '/page/$page'
+      path: '/page/$page'
+      fullPath: '/page/$page'
+      preLoaderRoute: typeof PagePageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/duzenle/$id': {
       id: '/admin/duzenle/$id'
       path: '/admin/duzenle/$id'
@@ -371,6 +391,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminYeniYaziRoute: AdminYeniYaziRoute,
   AuthorSlugRoute: AuthorSlugRoute,
   KategoriSlugRoute: KategoriSlugRoute,
+  PagePageRoute: PagePageRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminDuzenleIdRoute: AdminDuzenleIdRoute,
 }

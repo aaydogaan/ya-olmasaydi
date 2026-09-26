@@ -120,7 +120,14 @@ export type AuthorSlug = "recep" | "selman";
 
 export const AUTHORS: Record<
   AuthorSlug,
-  { slug: AuthorSlug; name: string; initials: string; role: string; bio: string }
+  {
+    slug: AuthorSlug;
+    name: string;
+    initials: string;
+    role: string;
+    bio: string;
+    avatar: string;
+  }
 > = {
   recep: {
     slug: "recep",
@@ -128,6 +135,7 @@ export const AUTHORS: Record<
     initials: "RA",
     role: "Kurucu & Yazar",
     bio: "Ya Olmasaydı kurucusu. Tasarım, içerik, SEO ve teknik altyapı.",
+    avatar: "/images/Recep-rastgel.webp",
   },
   selman: {
     slug: "selman",
@@ -135,6 +143,7 @@ export const AUTHORS: Record<
     initials: "SA",
     role: "Tasarım & Yazar",
     bio: "Ya Olmasaydı görsel tasarım ve içerik yazarı.",
+    avatar: "/images/selman-rastgel.webp",
   },
 };
 

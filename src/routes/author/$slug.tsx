@@ -11,6 +11,18 @@ export const Route = createFileRoute("/author/$slug")({
     if (!author) throw notFound();
     return { author, posts: getPostsByAuthor(author.slug) };
   },
+  head: ({ loaderData }) => {
+    const author = loaderData?.author;
+    if (!author) return {};
+    return {
+      meta: [
+        { title: `${author.name} Yazıları - Ya Olmasaydı` },
+        { name: "description", content: `${author.name} tarafından kaleme alınan tüm yazılar ve senaryolar.` },
+        { property: "og:title", content: `${author.name} Yazıları - Ya Olmasaydı` },
+      ],
+      links: [{ rel: "canonical", href: `https://yaolmasaydi.com/author/${author.slug}` }],
+    };
+  },
   component: AuthorPage,
 });
 
