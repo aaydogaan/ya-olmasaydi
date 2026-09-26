@@ -8,6 +8,7 @@ package-lock.json
 wp-yedek/
 attachments/
 screenshots/
+public/uploads/
 
 # Logs & scratch
 *.log
