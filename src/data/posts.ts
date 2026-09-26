@@ -10698,7 +10698,7 @@ export const POSTS: Post[] = [
     "slug": "ya-griffith-olmasaydi",
     "title": "Ya Griffith Olmasaydı?",
     "category": "kultur-ve-sanat",
-    "author": "hazal",
+    "author": "recep",
     "publishedAt": "2026-02-04",
     "comments": 0,
     "excerpt": "Sinema tarihinin en etkili ve tartışmalı isimlerinden biri olan D.W.Griffith (David Wark Griffith), \"sinemanın babası\" olarak da bilinir. Griffith; sinemayı bas...",

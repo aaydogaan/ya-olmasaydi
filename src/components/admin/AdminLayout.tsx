@@ -8,8 +8,6 @@ import {
   LogOut,
   Database,
   Cloud,
-  CheckCircle2,
-  Sparkles,
 } from "lucide-react";
 import { adminLogoutAction } from "@/lib/admin-actions";
 
@@ -33,33 +31,20 @@ export function AdminLayout({ children, activeTab = "dashboard" }: AdminLayoutPr
       {/* Top Navbar */}
       <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-white/10 bg-[#0d0e12]/80 px-6 backdrop-blur-md">
         <div className="flex items-center gap-4">
-          <Link to="/" target="_blank" className="flex items-center gap-2 group">
-            <span className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 font-display font-bold text-white shadow-lg shadow-orange-500/20 group-hover:scale-105 transition-transform">
-              ?
+          <Link to="/" target="_blank" className="flex items-center gap-3 group">
+            <img
+              src="/images/logo.png"
+              alt="Ya Olmasaydı"
+              className="h-7 w-auto object-contain transition-transform group-hover:scale-105"
+            />
+            <span className="rounded-md bg-orange-500/10 px-2 py-0.5 text-[0.65rem] font-semibold text-orange-400 border border-orange-500/20">
+              YÖNETİM PANELİ
             </span>
-            <div>
-              <span className="font-display text-base font-bold tracking-tight text-white">
-                YA OLMASAYDI
-              </span>
-              <span className="ml-2 rounded-md bg-orange-500/10 px-1.5 py-0.5 text-[0.65rem] font-semibold text-orange-400 border border-orange-500/20">
-                YÖNETİM PANELİ
-              </span>
-            </div>
           </Link>
         </div>
 
-        {/* System Health Indicators */}
-        <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-400">
-            <Database className="size-3.5" />
-            <span>PostgreSQL: Aktif</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs text-blue-400">
-            <Cloud className="size-3.5" />
-            <span>Cloudflare R2 CDN</span>
-          </div>
-
+        {/* Action Buttons */}
+        <div className="flex items-center gap-3">
           <a
             href="/"
             target="_blank"
@@ -74,7 +59,7 @@ export function AdminLayout({ children, activeTab = "dashboard" }: AdminLayoutPr
             type="button"
             onClick={handleLogout}
             title="Çıkış Yap"
-            className="flex items-center gap-1.5 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-400 hover:bg-red-500/20 transition-colors"
+            className="flex items-center gap-1.5 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-400 hover:bg-red-500/20 transition-colors cursor-pointer"
           >
             <LogOut className="size-3.5" />
             <span>Çıkış</span>
@@ -85,7 +70,7 @@ export function AdminLayout({ children, activeTab = "dashboard" }: AdminLayoutPr
       {/* Main Container */}
       <div className="flex min-h-[calc(100vh-4rem)]">
         {/* Sidebar */}
-        <aside className="w-64 border-r border-white/10 bg-neutral-950/40 p-4 hidden md:block">
+        <aside className="w-64 border-r border-white/10 bg-neutral-950/40 p-4 hidden md:flex md:flex-col md:justify-between">
           <div className="space-y-1">
             <Link
               to={"/admin" as any}
@@ -120,18 +105,25 @@ export function AdminLayout({ children, activeTab = "dashboard" }: AdminLayoutPr
               }`}
             >
               <FileText className="size-4" />
-              <span>Tüm Yazılar (103)</span>
+              <span>Tüm Yazılar</span>
             </Link>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-4">
-            <div className="flex items-center gap-2 text-xs font-semibold text-orange-400">
-              <Sparkles className="size-3.5" />
-              <span>Kayıpsız R2 Motoru</span>
+          {/* Panel Bilgileri (PostgreSQL & Cloudflare R2 Status) */}
+          <div className="pt-6 border-t border-white/10 space-y-2.5">
+            <div className="px-1 text-[0.65rem] font-semibold uppercase tracking-wider text-neutral-500">
+              Panel Bilgileri
             </div>
-            <p className="mt-1 text-[0.7rem] leading-relaxed text-neutral-400">
-              Görseller yüklenirken kalite bozulmadan optimize edilir ve doğrudan Cloudflare CDN üzerinden sunulur.
-            </p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-400">
+                <Database className="size-3.5 shrink-0" />
+                <span className="font-medium">PostgreSQL: Aktif</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-blue-500/20 bg-blue-500/10 px-3 py-2 text-xs text-blue-400">
+                <Cloud className="size-3.5 shrink-0" />
+                <span className="font-medium">Cloudflare R2 CDN</span>
+              </div>
+            </div>
           </div>
         </aside>
 

@@ -14,6 +14,7 @@ import {
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { RichEditor } from "@/components/admin/RichEditor";
 import { SeoPreview } from "@/components/admin/SeoPreview";
+import { CustomSelect } from "@/components/admin/CustomSelect";
 import {
   adminCheckSessionAction,
   adminGetCategoriesAction,
@@ -354,39 +355,25 @@ function NewPostPage() {
 
           {/* Taxonomy (Category & Author) */}
           <div className="rounded-2xl border border-white/10 bg-neutral-900/60 p-5 backdrop-blur-md space-y-4">
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-2">
-                Kategori
-              </label>
-              <select
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-950 p-2.5 text-xs text-white outline-none focus:border-orange-500"
-              >
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <CustomSelect
+              label="Kategori"
+              value={categoryId}
+              onChange={setCategoryId}
+              options={categories.map((c) => ({
+                value: c.id,
+                label: c.name,
+              }))}
+            />
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-2">
-                Yazar
-              </label>
-              <select
-                value={authorId}
-                onChange={(e) => setAuthorId(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-neutral-950 p-2.5 text-xs text-white outline-none focus:border-orange-500"
-              >
-                {authors.map((a) => (
-                  <option key={a.id} value={a.id}>
-                    {a.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <CustomSelect
+              label="Yazar"
+              value={authorId}
+              onChange={setAuthorId}
+              options={authors.map((a) => ({
+                value: a.id,
+                label: a.name,
+              }))}
+            />
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-2">

@@ -116,7 +116,7 @@ export const LEGAL_LINKS = [
   { href: "/iletisim", label: "İletişim" },
 ];
 
-export type AuthorSlug = "recep" | "selman" | "hazal" | "furkan";
+export type AuthorSlug = "recep" | "selman";
 
 export const AUTHORS: Record<
   AuthorSlug,
@@ -126,29 +126,15 @@ export const AUTHORS: Record<
     slug: "recep",
     name: "Recep Aydoğan",
     initials: "RA",
-    role: "Kurucu",
-    bio: "Sitenin kurucusu ve sahibi. Tasarım, içerik, SEO ve teknik altyapı. Yazıların bir kısmını da kendisi kaleme alır.",
+    role: "Kurucu & Yazar",
+    bio: "Ya Olmasaydı kurucusu. Tasarım, içerik, SEO ve teknik altyapı.",
   },
   selman: {
     slug: "selman",
     name: "Selman Aydoğan",
     initials: "SA",
-    role: "Görsel & Sosyal Medya",
-    bio: "Görseller, tasarımlar ve sosyal medya paylaşımlarından sorumlu.",
-  },
-  hazal: {
-    slug: "hazal",
-    name: "Hazal Bugutekin",
-    initials: "HB",
-    role: "Yazar",
-    bio: "Kültür, sanat ve sinema üzerine yazıyor.",
-  },
-  furkan: {
-    slug: "furkan",
-    name: "Muhammed Furkan Yağız",
-    initials: "FY",
-    role: "İçerik & Sosyal Medya",
-    bio: "İlginç ve bilgilendirici yazılar yazar, sosyal medya etkileşimlerini yönetir.",
+    role: "Tasarım & Yazar",
+    bio: "Ya Olmasaydı görsel tasarım ve içerik yazarı.",
   },
 };
 

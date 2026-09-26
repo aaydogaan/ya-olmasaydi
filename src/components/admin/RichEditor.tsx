@@ -125,12 +125,12 @@ export function RichEditor({
 
           if (res.url) {
             if (isCodeView) {
-              onChange(`${value}\n<figure><img src="${res.url}" alt="${file.name}" /></figure>\n`);
+              onChange(`${value}\n<figure><img src="${res.url}" alt="Görsel" /></figure>\n`);
             } else {
               if (editorRef.current) editorRef.current.focus();
               exec(
                 "insertHTML",
-                `<figure class="my-6"><img src="${res.url}" alt="${file.name}" class="rounded-xl shadow-md my-4 max-w-full" /><figcaption class="text-xs text-center text-gray-500 mt-2 italic">${file.name.replace(/\.[^/.]+$/, "")}</figcaption></figure><p><br></p>`
+                `<figure class="my-6"><img src="${res.url}" alt="Görsel" class="rounded-xl shadow-md my-4 max-w-full" /></figure><p><br></p>`
               );
             }
           }
@@ -341,7 +341,7 @@ export function RichEditor({
           contentEditable
           onInput={handleInput}
           data-placeholder={placeholder}
-          className="prose-yo w-full p-6 text-neutral-100 outline-none focus:ring-0 empty:before:text-neutral-500 empty:before:content-[attr(data-placeholder)]"
+          className="admin-editor-content w-full p-6 text-neutral-100 outline-none focus:ring-0 empty:before:text-neutral-500 empty:before:content-[attr(data-placeholder)]"
           style={{ minHeight }}
         />
       )}

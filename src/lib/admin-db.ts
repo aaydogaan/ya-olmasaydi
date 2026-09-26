@@ -237,7 +237,7 @@ export async function getAdminPost(idOrSlug: string) {
              p.published_at, p.updated_at, p.comment_count, p.views_count,
              p.seo_title, p.seo_description, p.seo_focus_keyword, p.is_published,
              c.id as category_id, c.name as category_name, c.slug as category_slug,
-             a.name as author_name,
+             a.name as author_name, a.slug as author_slug,
              COALESCE(
                (SELECT json_agg(pt.tag) FROM post_tags pt WHERE pt.post_id = p.id),
                '[]'::json

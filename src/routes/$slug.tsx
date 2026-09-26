@@ -12,10 +12,11 @@ import {
   relatedPosts,
 } from "@/data/posts";
 import { AUTHORS, getCategory } from "@/data/site";
+import { getPublicPostAction } from "@/lib/public-actions";
 
 export const Route = createFileRoute("/$slug")({
-  loader: ({ params }) => {
-    const post = getPost(params.slug);
+  loader: async ({ params }) => {
+    const post = await getPublicPostAction({ data: params.slug });
     if (!post) throw notFound();
     return { post };
   },

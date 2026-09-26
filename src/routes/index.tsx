@@ -6,12 +6,21 @@ import { Sidebar } from "@/components/home/Sidebar";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PostCard } from "@/components/post/PostCard";
 import { homepagePosts, POSTS } from "@/data/posts";
+import { getPublicAllPostsAction } from "@/lib/public-actions";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  loader: async () => {
+    const dbPosts = await getPublicAllPostsAction();
+    return { dbPosts };
+  },
+  component: Home,
+});
 
 function Home() {
-  const featured = homepagePosts();
-  const rest = POSTS.filter((p) => !p.homepage);
+  const { dbPosts } = Route.useLoaderData();
+  const allPosts = dbPosts || POSTS;
+  const featured = dbPosts ? allPosts.slice(0, 10) : homepagePosts();
+  const rest = dbPosts ? allPosts.slice(10) : POSTS.filter((p) => !p.homepage);
   const [showOlder, setShowOlder] = useState(false);
 
   return (
