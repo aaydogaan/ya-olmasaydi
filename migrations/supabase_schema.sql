@@ -87,9 +87,20 @@ ALTER TABLE post_tags ENABLE ROW LEVEL SECURITY;
 ALTER TABLE pages ENABLE ROW LEVEL SECURITY;
 
 -- Allow public read access to all published content
+DROP POLICY IF EXISTS "Public read for authors" ON authors;
 CREATE POLICY "Public read for authors" ON authors FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read for categories" ON categories;
 CREATE POLICY "Public read for categories" ON categories FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read for published posts" ON posts;
 CREATE POLICY "Public read for published posts" ON posts FOR SELECT USING (is_published = true);
+
+DROP POLICY IF EXISTS "Public read for post_categories" ON post_categories;
 CREATE POLICY "Public read for post_categories" ON post_categories FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read for post_tags" ON post_tags;
 CREATE POLICY "Public read for post_tags" ON post_tags FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read for pages" ON pages;
 CREATE POLICY "Public read for pages" ON pages FOR SELECT USING (true);
