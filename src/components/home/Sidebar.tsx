@@ -2,9 +2,42 @@ import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { IconArrow, IconClock, IconFacebook, IconInstagram, IconX } from "@/components/icons";
 import { AwardCard } from "@/components/home/AwardCard";
-import { Cover } from "@/components/post/Cover";
 import { featuredPosts, formatRelativeTr, latestPosts, readTime } from "@/data/posts";
 import { AUTHORS, SITE, getCategory } from "@/data/site";
+
+function PostThumb({ image, title, category }: { image?: string | null; title: string; category: string }) {
+  const cleanImg = (image || "").replace(/^\/?uploads\//, "");
+  const src = !image ? null : image.startsWith("http") ? image : `https://cdn.yaolmasaydi.com/${cleanImg}`;
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={title}
+        className="size-full object-cover"
+        loading="lazy"
+      />
+    );
+  }
+  // Fallback: coloured block based on category
+  const colors: Record<string, string> = {
+    "doga-ve-evren": "#191970",
+    "canlilar-ve-ekosistem": "#228b22",
+    "tarih-ve-medeniyet": "#daa520",
+    "bilim-ve-teknoloji": "#0074d9",
+    "kultur-ve-sanat": "#001f3f",
+    "fantastik": "#ff7633",
+    "gunluk-yasam": "#09659b",
+    "sizden-gelenler": "#ea3535",
+  };
+  return (
+    <div
+      className="flex size-full items-center justify-center text-white font-bold text-xs"
+      style={{ background: colors[category] ?? "#333" }}
+    >
+      ?
+    </div>
+  );
+}
 
 export function Sidebar() {
   const [q, setQ] = useState("");
@@ -61,56 +94,75 @@ export function Sidebar() {
 
       <AwardCard />
 
+      {/* Öne Çıkan Yazılar — with thumbnails */}
       <section>
         <p className="text-xs text-muted">En popüler içeriklerimiz</p>
         <h3 className="mb-4 font-display text-lg font-semibold">Öne Çıkan Yazılar</h3>
-        <ul className="space-y-4">
+        <ul className="space-y-3.5">
           {featuredPosts().map((p) => {
             const cat = getCategory(p.category);
             return (
-              <li key={p.slug} className="border-b border-line pb-4 last:border-0">
-                <span className="cat-pill mb-2" data-cat={p.category}>
-                  {cat?.name}
-                </span>
-                <Link to="/$slug" params={{ slug: p.slug }} className="mt-1 block font-display text-[0.95rem] font-semibold leading-snug hover:text-accent">
-                  {p.title}
+              <li key={p.slug} className="flex items-center gap-3">
+                <Link
+                  to="/$slug"
+                  params={{ slug: p.slug }}
+                  className="relative size-14 shrink-0 overflow-hidden rounded-xl border-2 border-white shadow-sm bg-neutral-900"
+                >
+                  <PostThumb image={p.image} title={p.title} category={p.category} />
                 </Link>
-                <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
-                  <span>{AUTHORS[p.author].name}</span>
-                  <span className="inline-flex items-center gap-1">
-                    <IconClock className="size-3" />
-                    {readTime(p)} dk
+                <div className="min-w-0 flex-1">
+                  <span className="cat-pill mb-1" data-cat={p.category}>
+                    {cat?.name}
                   </span>
-                </p>
+                  <Link
+                    to="/$slug"
+                    params={{ slug: p.slug }}
+                    className="mt-1 block font-display text-[0.85rem] font-semibold leading-snug hover:text-accent line-clamp-2"
+                  >
+                    {p.title}
+                  </Link>
+                  <p className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[0.72rem] text-muted">
+                    <span>{AUTHORS[p.author].name}</span>
+                    <span className="inline-flex items-center gap-0.5">
+                      <IconClock className="size-3" />
+                      {readTime(p)} dk
+                    </span>
+                  </p>
+                </div>
               </li>
             );
           })}
         </ul>
       </section>
 
+      {/* Son Eklenenler — with thumbnails */}
       <section>
         <p className="text-xs text-muted">Blogumuza eklenen en yeni içerikler.</p>
         <h3 className="mb-4 font-display text-lg font-semibold">Son Eklenenler</h3>
-        <ol className="space-y-4">
+        <ol className="space-y-3.5">
           {latestPosts(4).map((p) => {
             const cat = getCategory(p.category);
             return (
-              <li key={p.slug} className="flex gap-3">
+              <li key={p.slug} className="flex items-center gap-3">
                 <Link
                   to="/$slug"
                   params={{ slug: p.slug }}
-                  className="relative size-14 shrink-0 overflow-hidden rounded-full"
+                  className="relative size-14 shrink-0 overflow-hidden rounded-xl border-2 border-white shadow-sm bg-neutral-900"
                 >
-                  <Cover category={p.category} slug={p.slug} title={p.title} mark={false} className="h-full" />
+                  <PostThumb image={p.image} title={p.title} category={p.category} />
                 </Link>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <span className="cat-pill mb-1" data-cat={p.category}>
                     {cat?.name}
                   </span>
-                  <Link to="/$slug" params={{ slug: p.slug }} className="mt-1 block font-display text-sm font-semibold leading-snug hover:text-accent">
+                  <Link
+                    to="/$slug"
+                    params={{ slug: p.slug }}
+                    className="mt-1 block font-display text-sm font-semibold leading-snug hover:text-accent line-clamp-2"
+                  >
                     {p.title}
                   </Link>
-                  <p className="text-xs text-muted">
+                  <p className="text-[0.72rem] text-muted mt-0.5">
                     {AUTHORS[p.author].name} · {formatRelativeTr(p.publishedAt)}
                   </p>
                 </div>

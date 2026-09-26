@@ -33,7 +33,7 @@ function StoryPage() {
         {/* Banner image */}
         <div className="mb-8 overflow-hidden rounded-2xl border border-line/60 shadow-sm">
           <img
-            src="/images/Senin-hayat%C4%B1n-nas%C4%B1l-de%C4%9Fi%C5%9Firdi-Banner.jpg"
+            src="/images/banner-senin.jpg"
             alt="Senin Hayatın Nasıl Değişirdi?"
             className="w-full h-auto object-cover"
           />

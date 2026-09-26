@@ -9,7 +9,6 @@ import {
   IconX,
 } from "@/components/icons";
 import { Logo } from "@/components/Logo";
-import { Avatar } from "@/components/post/Avatar";
 import { editorPicks, likedPosts } from "@/data/posts";
 import { AUTHORS, SITE, getCategory } from "@/data/site";
 
@@ -108,13 +107,23 @@ export function Footer() {
                 : p.image.startsWith("http")
                 ? p.image
                 : `https://cdn.yaolmasaydi.com/${cleanImg}`;
+              const catColors: Record<string, string> = {
+                "doga-ve-evren": "#191970",
+                "canlilar-ve-ekosistem": "#228b22",
+                "tarih-ve-medeniyet": "#daa520",
+                "bilim-ve-teknoloji": "#0074d9",
+                "kultur-ve-sanat": "#001f3f",
+                "fantastik": "#ff7633",
+                "gunluk-yasam": "#09659b",
+                "sizden-gelenler": "#ea3535",
+              };
 
               return (
                 <li key={p.slug} className="flex items-center gap-3">
                   <Link
                     to="/$slug"
                     params={{ slug: p.slug }}
-                    className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-neutral-900 border border-line"
+                    className="relative size-14 shrink-0 overflow-hidden rounded-xl border-2 border-white shadow-sm bg-neutral-900"
                   >
                     {imgSrc ? (
                       <img
@@ -124,23 +133,26 @@ export function Footer() {
                         loading="lazy"
                       />
                     ) : (
-                      <div className="flex size-full items-center justify-center font-bold text-orange-500 text-xs">
+                      <div
+                        className="flex size-full items-center justify-center text-white font-bold text-xs"
+                        style={{ background: catColors[p.category] ?? "#333" }}
+                      >
                         ?
                       </div>
                     )}
                   </Link>
                   <div className="min-w-0 flex-1">
-                    <p className="mb-0.5 text-[0.65rem] font-semibold tracking-wider text-muted uppercase">
+                    <span className="cat-pill mb-1" data-cat={p.category}>
                       {cat?.name}
-                    </p>
+                    </span>
                     <Link
                       to="/$slug"
                       params={{ slug: p.slug }}
-                      className="font-display text-xs font-semibold leading-snug hover:text-accent line-clamp-2"
+                      className="mt-0.5 block font-display text-xs font-semibold leading-snug hover:text-accent line-clamp-2"
                     >
                       {p.title}
                     </Link>
-                    <p className="mt-1 text-[0.7rem] text-muted">
+                    <p className="mt-0.5 text-[0.7rem] text-muted">
                       {AUTHORS[p.author]?.name || "Recep Aydoğan"}
                     </p>
                   </div>
@@ -154,33 +166,63 @@ export function Footer() {
         <div>
           <h3 className="font-display text-base font-semibold">Editörün Favorileri</h3>
           <p className="mb-4 text-xs text-muted">Editörün beğendikleri</p>
-          <ol className="space-y-4">
+          <ol className="space-y-3.5">
             {editorPicks().map((p, i) => {
               const cat = getCategory(p.category);
+              const cleanImg = (p.image || "").replace(/^\/?uploads\//, "");
+              const imgSrc = !p.image
+                ? null
+                : p.image.startsWith("http")
+                ? p.image
+                : `https://cdn.yaolmasaydi.com/${cleanImg}`;
+              const catColors: Record<string, string> = {
+                "doga-ve-evren": "#191970",
+                "canlilar-ve-ekosistem": "#228b22",
+                "tarih-ve-medeniyet": "#daa520",
+                "bilim-ve-teknoloji": "#0074d9",
+                "kultur-ve-sanat": "#001f3f",
+                "fantastik": "#ff7633",
+                "gunluk-yasam": "#09659b",
+                "sizden-gelenler": "#ea3535",
+              };
               return (
-                <li key={p.slug} className="flex gap-3">
+                <li key={p.slug} className="flex items-center gap-3">
                   <Link
                     to="/$slug"
                     params={{ slug: p.slug }}
-                    className="relative size-12 shrink-0 overflow-hidden rounded-full border border-white/20"
+                    className="relative size-14 shrink-0 overflow-hidden rounded-xl border-2 border-white shadow-sm bg-neutral-900"
                   >
-                    <span className="absolute top-0 left-0 z-10 flex size-4.5 items-center justify-center rounded-full bg-ink text-[0.6rem] font-bold text-inverse">
+                    <span className="absolute top-1 left-1 z-10 flex size-4 items-center justify-center rounded-full bg-ink text-[0.6rem] font-bold text-inverse leading-none">
                       {i + 1}
                     </span>
-                    <Avatar slug={p.author} size={48} link={false} />
+                    {imgSrc ? (
+                      <img
+                        src={imgSrc}
+                        alt={p.title}
+                        className="size-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div
+                        className="flex size-full items-center justify-center text-white font-bold text-xs"
+                        style={{ background: catColors[p.category] ?? "#333" }}
+                      >
+                        ?
+                      </div>
+                    )}
                   </Link>
-                  <div className="min-w-0">
-                    <span className="cat-pill mb-1 text-[0.6rem]" data-cat={p.category}>
+                  <div className="min-w-0 flex-1">
+                    <span className="cat-pill mb-1" data-cat={p.category}>
                       {cat?.name}
                     </span>
                     <Link
                       to="/$slug"
                       params={{ slug: p.slug }}
-                      className="mt-1 block font-display text-xs font-semibold leading-snug hover:text-accent line-clamp-2"
+                      className="mt-0.5 block font-display text-xs font-semibold leading-snug hover:text-accent line-clamp-2"
                     >
                       {p.title}
                     </Link>
-                    <p className="text-[0.7rem] text-muted">
+                    <p className="mt-0.5 text-[0.7rem] text-muted">
                       {AUTHORS[p.author]?.name || "Recep Aydoğan"}
                     </p>
                   </div>

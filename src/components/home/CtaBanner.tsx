@@ -9,7 +9,7 @@ export function CtaBanner() {
         title="Senin Hayatın Nasıl Değişirdi?"
       >
         <img
-          src="/images/Senin-hayat%C4%B1n-nas%C4%B1l-de%C4%9Fi%C5%9Firdi-Banner.jpg"
+          src="/images/banner-senin.jpg"
           alt="Senin Hayatın Nasıl Değişirdi?"
           className="w-full h-auto object-cover max-h-[340px]"
           loading="lazy"

@@ -34,7 +34,7 @@ function AboutPage() {
         </p>
         <div className="my-6 overflow-hidden rounded-2xl border border-line/60 shadow-md">
           <img
-            src="/images/Birincilik---Ya-Olmasayd%C4%B1.jpg"
+            src="/images/birincilik.jpg"
             alt="TRT Geleceğin İletişimcileri Birincilik Ödülü"
             className="w-full h-auto object-cover"
             loading="lazy"
