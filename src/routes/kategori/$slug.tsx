@@ -32,7 +32,7 @@ function CategoryPage() {
           </p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2">
-            {posts.map((p) => (
+            {posts.map((p: any) => (
               <PostCard key={p.slug} post={p} />
             ))}
           </div>

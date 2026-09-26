@@ -20,7 +20,7 @@ export type Post = {
   comments: number;
   excerpt: string;
   image?: string | null;
-  content: ContentBlock[];
+  content: ContentBlock[] | string;
   tags: string[];
   hero?: boolean;
   homepage?: boolean;
@@ -11187,7 +11187,12 @@ function byDate(a: Post, b: Post) {
 }
 
 export function readTime(post: Post) {
-  const words = post.content
+  if (typeof post.content === "string") {
+    const text = post.content.replace(/<[^>]*>/g, " ");
+    const words = text.split(/\s+/).filter(Boolean).length;
+    return Math.max(2, Math.round(words / 180));
+  }
+  const words = (Array.isArray(post.content) ? post.content : [])
     .map((b) => b.text)
     .join(" ")
     .split(/\s+/)

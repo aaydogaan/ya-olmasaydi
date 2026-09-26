@@ -63,7 +63,7 @@ export async function optimizeAndUploadImage(
   } = options;
 
   const originalSize = inputBuffer.length;
-  let pipeline = sharp(inputBuffer, { failOnError: false });
+  let pipeline = sharp(inputBuffer);
 
   // 1. Metadata ve boyut kontrolü
   const metadata = await pipeline.metadata();

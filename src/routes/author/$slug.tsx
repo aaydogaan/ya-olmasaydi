@@ -27,7 +27,7 @@ function AuthorPage() {
         </div>
       </header>
       <div className="site-wrap grid gap-8 py-10 md:grid-cols-2">
-        {posts.map((p) => (
+        {posts.map((p: any) => (
           <PostCard key={p.slug} post={p} />
         ))}
       </div>

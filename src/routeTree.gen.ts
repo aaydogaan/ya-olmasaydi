@@ -19,8 +19,12 @@ import { Route as SartlarVeKosullarRouteImport } from './routes/sartlar-ve-kosul
 import { Route as SeninHayatinNasilDegisirdiRouteImport } from './routes/senin-hayatin-nasil-degisirdi'
 import { Route as YaPodcastRouteImport } from './routes/ya-podcast'
 import { Route as YazarOlRouteImport } from './routes/yazar-ol'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminYeniYaziRouteImport } from './routes/admin/yeni-yazi'
 import { Route as AuthorSlugRouteImport } from './routes/author/$slug'
 import { Route as KategoriSlugRouteImport } from './routes/kategori/$slug'
+import { Route as AdminDuzenleIdRouteImport } from './routes/admin/duzenle/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -73,6 +77,21 @@ const YazarOlRoute = YazarOlRouteImport.update({
   path: '/yazar-ol',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminYeniYaziRoute = AdminYeniYaziRouteImport.update({
+  id: '/admin/yeni-yazi',
+  path: '/admin/yeni-yazi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthorSlugRoute = AuthorSlugRouteImport.update({
   id: '/author/$slug',
   path: '/author/$slug',
@@ -81,6 +100,11 @@ const AuthorSlugRoute = AuthorSlugRouteImport.update({
 const KategoriSlugRoute = KategoriSlugRouteImport.update({
   id: '/kategori/$slug',
   path: '/kategori/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDuzenleIdRoute = AdminDuzenleIdRouteImport.update({
+  id: '/admin/duzenle/$id',
+  path: '/admin/duzenle/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -95,8 +119,12 @@ export interface FileRoutesByFullPath {
   '/senin-hayatin-nasil-degisirdi': typeof SeninHayatinNasilDegisirdiRoute
   '/ya-podcast': typeof YaPodcastRoute
   '/yazar-ol': typeof YazarOlRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/yeni-yazi': typeof AdminYeniYaziRoute
   '/author/$slug': typeof AuthorSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/duzenle/$id': typeof AdminDuzenleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -109,8 +137,12 @@ export interface FileRoutesByTo {
   '/senin-hayatin-nasil-degisirdi': typeof SeninHayatinNasilDegisirdiRoute
   '/ya-podcast': typeof YaPodcastRoute
   '/yazar-ol': typeof YazarOlRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/yeni-yazi': typeof AdminYeniYaziRoute
   '/author/$slug': typeof AuthorSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/duzenle/$id': typeof AdminDuzenleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -124,8 +156,12 @@ export interface FileRoutesById {
   '/senin-hayatin-nasil-degisirdi': typeof SeninHayatinNasilDegisirdiRoute
   '/ya-podcast': typeof YaPodcastRoute
   '/yazar-ol': typeof YazarOlRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/yeni-yazi': typeof AdminYeniYaziRoute
   '/author/$slug': typeof AuthorSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/duzenle/$id': typeof AdminDuzenleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,8 +176,12 @@ export interface FileRouteTypes {
     | '/senin-hayatin-nasil-degisirdi'
     | '/ya-podcast'
     | '/yazar-ol'
+    | '/admin/login'
+    | '/admin/yeni-yazi'
     | '/author/$slug'
     | '/kategori/$slug'
+    | '/admin/'
+    | '/admin/duzenle/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -154,8 +194,12 @@ export interface FileRouteTypes {
     | '/senin-hayatin-nasil-degisirdi'
     | '/ya-podcast'
     | '/yazar-ol'
+    | '/admin/login'
+    | '/admin/yeni-yazi'
     | '/author/$slug'
     | '/kategori/$slug'
+    | '/admin'
+    | '/admin/duzenle/$id'
   id:
     | '__root__'
     | '/'
@@ -168,8 +212,12 @@ export interface FileRouteTypes {
     | '/senin-hayatin-nasil-degisirdi'
     | '/ya-podcast'
     | '/yazar-ol'
+    | '/admin/login'
+    | '/admin/yeni-yazi'
     | '/author/$slug'
     | '/kategori/$slug'
+    | '/admin/'
+    | '/admin/duzenle/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,8 +231,12 @@ export interface RootRouteChildren {
   SeninHayatinNasilDegisirdiRoute: typeof SeninHayatinNasilDegisirdiRoute
   YaPodcastRoute: typeof YaPodcastRoute
   YazarOlRoute: typeof YazarOlRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminYeniYaziRoute: typeof AdminYeniYaziRoute
   AuthorSlugRoute: typeof AuthorSlugRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminDuzenleIdRoute: typeof AdminDuzenleIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -259,6 +311,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof YazarOlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/yeni-yazi': {
+      id: '/admin/yeni-yazi'
+      path: '/admin/yeni-yazi'
+      fullPath: '/admin/yeni-yazi'
+      preLoaderRoute: typeof AdminYeniYaziRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/author/$slug': {
       id: '/author/$slug'
       path: '/author/$slug'
@@ -271,6 +344,13 @@ declare module '@tanstack/react-router' {
       path: '/kategori/$slug'
       fullPath: '/kategori/$slug'
       preLoaderRoute: typeof KategoriSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/duzenle/$id': {
+      id: '/admin/duzenle/$id'
+      path: '/admin/duzenle/$id'
+      fullPath: '/admin/duzenle/$id'
+      preLoaderRoute: typeof AdminDuzenleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -287,8 +367,12 @@ const rootRouteChildren: RootRouteChildren = {
   SeninHayatinNasilDegisirdiRoute: SeninHayatinNasilDegisirdiRoute,
   YaPodcastRoute: YaPodcastRoute,
   YazarOlRoute: YazarOlRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminYeniYaziRoute: AdminYeniYaziRoute,
   AuthorSlugRoute: AuthorSlugRoute,
   KategoriSlugRoute: KategoriSlugRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminDuzenleIdRoute: AdminDuzenleIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

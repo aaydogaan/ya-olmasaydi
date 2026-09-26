@@ -36,7 +36,13 @@ export const Route = createFileRoute("/$slug")({
 function PostPage() {
   const { post } = Route.useLoaderData();
   const cat = getCategory(post.category);
-  const author = AUTHORS[post.author];
+  const author = AUTHORS[post.author as keyof typeof AUTHORS] || {
+    name: "Recep Aydoğan",
+    role: "Yazar",
+    bio: "",
+    slug: "recep",
+    initials: "RA",
+  };
   const minutes = readTime(post);
   const related = relatedPosts(post);
   const url = typeof window !== "undefined" ? window.location.href : `/${post.slug}`;
@@ -89,16 +95,22 @@ function PostPage() {
               <ShareIcons url={url} title={post.title} variant="filled" />
             </div>
             <div className="prose-yo">
-              {post.content.map((block, i) => {
-                if (block.type === "h2") return <h2 key={i}>{block.text}</h2>;
-                if (block.type === "h3") return <h3 key={i}>{block.text}</h3>;
-                if (block.type === "quote")
-                  return <blockquote key={i}>{block.text}</blockquote>;
-                return <p key={i}>{block.text}</p>;
-              })}
+              {typeof post.content === "string" ? (
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              ) : Array.isArray(post.content) ? (
+                post.content.map((block: any, i: number) => {
+                  if (block.type === "h2")
+                    return <h2 key={i} dangerouslySetInnerHTML={{ __html: block.text }} />;
+                  if (block.type === "h3")
+                    return <h3 key={i} dangerouslySetInnerHTML={{ __html: block.text }} />;
+                  if (block.type === "quote")
+                    return <blockquote key={i} dangerouslySetInnerHTML={{ __html: block.text }} />;
+                  return <p key={i} dangerouslySetInnerHTML={{ __html: block.text }} />;
+                })
+              ) : null}
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
-              {post.tags.map((t) => (
+              {post.tags.map((t: string) => (
                 <span key={t} className="rounded-full bg-paper px-3 py-1 text-xs text-dim">
                   {t}
                 </span>

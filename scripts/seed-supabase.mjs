@@ -12,9 +12,10 @@ async function seed() {
     process.exit(1);
   }
 
+  const isSsl = connectionString.includes('sslmode=require') || connectionString.includes('supabase.co');
   const client = new Client({
     connectionString,
-    ssl: { rejectUnauthorized: false }
+    ssl: isSsl ? { rejectUnauthorized: false } : false
   });
 
   try {
