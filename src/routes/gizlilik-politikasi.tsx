@@ -2,7 +2,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
-export const Route = createFileRoute("/gizlilik-politikasi")({ component: PrivacyPage });
+export const Route = createFileRoute("/gizlilik-politikasi")({
+  head: () => ({
+    meta: [
+      { title: "Gizlilik Politikası - Ya Olmasaydı" },
+      {
+        name: "description",
+        content:
+          "yaolmasaydi.com gizlilik politikası: Kullanıcı verilerinin güvenliği, çerezler ve gizlilik şartları hakkında detaylı bilgi.",
+      },
+      { property: "og:title", content: "Gizlilik Politikası - Ya Olmasaydı" },
+      { property: "og:url", content: "https://yaolmasaydi.com/gizlilik-politikasi" },
+    ],
+    links: [{ rel: "canonical", href: "https://yaolmasaydi.com/gizlilik-politikasi" }],
+  }),
+  component: PrivacyPage,
+});
 
 function PrivacyPage() {
   return (

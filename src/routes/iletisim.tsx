@@ -5,7 +5,27 @@ import { PageHeader } from "@/components/PageHeader";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { SITE } from "@/data/site";
 
-export const Route = createFileRoute("/iletisim")({ component: ContactPage });
+export const Route = createFileRoute("/iletisim")({
+  head: () => ({
+    meta: [
+      { title: "İletişim - Ya Olmasaydı" },
+      {
+        name: "description",
+        content:
+          "Ya Olmasaydı ekibiyle iletişime geçin. Soru, öneri ve iş birliği talepleriniz için bize ulaşabilirsiniz.",
+      },
+      { property: "og:title", content: "İletişim - Ya Olmasaydı" },
+      {
+        property: "og:description",
+        content:
+          "Ya Olmasaydı ekibiyle iletişime geçin. Soru, öneri ve iş birliği talepleriniz için bize ulaşabilirsiniz.",
+      },
+      { property: "og:url", content: "https://yaolmasaydi.com/iletisim" },
+    ],
+    links: [{ rel: "canonical", href: "https://yaolmasaydi.com/iletisim" }],
+  }),
+  component: ContactPage,
+});
 
 function ContactPage() {
   const [sent, setSent] = useState(false);

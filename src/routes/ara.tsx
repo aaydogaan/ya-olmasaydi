@@ -9,6 +9,12 @@ export const Route = createFileRoute("/ara")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     q: typeof s.q === "string" ? s.q : "",
   }),
+  head: () => ({
+    meta: [
+      { title: "Arama Sonuçları - Ya Olmasaydı" },
+      { name: "robots", content: "noindex, follow" },
+    ],
+  }),
   component: SearchPage,
 });
 

@@ -34,6 +34,12 @@ export const Route = createFileRoute("/admin/")({
     ]);
     return { stats, initialPosts: postsData };
   },
+  head: () => ({
+    meta: [
+      { title: "Yönetim Paneli - Ya Olmasaydı" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   component: AdminDashboardPage,
 });
 

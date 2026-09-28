@@ -142,17 +142,17 @@ export function Footer() {
                     )}
                   </Link>
                   <div className="min-w-0 flex-1">
-                    <span className="cat-pill mb-1" data-cat={p.category}>
+                    <span className="cat-pill text-[9px] px-1.5 py-0.5 mb-1 inline-block" data-cat={p.category}>
                       {cat?.name}
                     </span>
                     <Link
                       to="/$slug"
                       params={{ slug: p.slug }}
-                      className="mt-0.5 block font-display text-xs font-semibold leading-snug hover:text-accent line-clamp-2"
+                      className="block font-display text-[0.85rem] font-bold text-fg leading-snug hover:text-accent line-clamp-2"
                     >
                       {p.title}
                     </Link>
-                    <p className="mt-0.5 text-[0.7rem] text-muted">
+                    <p className="mt-0.5 text-[0.72rem] text-muted">
                       {AUTHORS[p.author]?.name || "Recep Aydoğan"}
                     </p>
                   </div>
@@ -212,17 +212,17 @@ export function Footer() {
                     )}
                   </Link>
                   <div className="min-w-0 flex-1">
-                    <span className="cat-pill mb-1" data-cat={p.category}>
+                    <span className="cat-pill text-[9px] px-1.5 py-0.5 mb-1 inline-block" data-cat={p.category}>
                       {cat?.name}
                     </span>
                     <Link
                       to="/$slug"
                       params={{ slug: p.slug }}
-                      className="mt-0.5 block font-display text-xs font-semibold leading-snug hover:text-accent line-clamp-2"
+                      className="block font-display text-[0.85rem] font-bold text-fg leading-snug hover:text-accent line-clamp-2"
                     >
                       {p.title}
                     </Link>
-                    <p className="mt-0.5 text-[0.7rem] text-muted">
+                    <p className="mt-0.5 text-[0.72rem] text-muted">
                       {AUTHORS[p.author]?.name || "Recep Aydoğan"}
                     </p>
                   </div>

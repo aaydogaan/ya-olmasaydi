@@ -111,13 +111,13 @@ export function Sidebar() {
                   <PostThumb image={p.image} title={p.title} category={p.category} />
                 </Link>
                 <div className="min-w-0 flex-1">
-                  <span className="cat-pill mb-1" data-cat={p.category}>
+                  <span className="cat-pill text-[9px] px-1.5 py-0.5 mb-1 inline-block" data-cat={p.category}>
                     {cat?.name}
                   </span>
                   <Link
                     to="/$slug"
                     params={{ slug: p.slug }}
-                    className="mt-1 block font-display text-[0.85rem] font-semibold leading-snug hover:text-accent line-clamp-2"
+                    className="mt-0.5 block font-display text-[0.875rem] font-bold text-fg leading-snug hover:text-accent line-clamp-2"
                   >
                     {p.title}
                   </Link>
@@ -152,13 +152,13 @@ export function Sidebar() {
                   <PostThumb image={p.image} title={p.title} category={p.category} />
                 </Link>
                 <div className="min-w-0 flex-1">
-                  <span className="cat-pill mb-1" data-cat={p.category}>
+                  <span className="cat-pill text-[9px] px-1.5 py-0.5 mb-1 inline-block" data-cat={p.category}>
                     {cat?.name}
                   </span>
                   <Link
                     to="/$slug"
                     params={{ slug: p.slug }}
-                    className="mt-1 block font-display text-sm font-semibold leading-snug hover:text-accent line-clamp-2"
+                    className="mt-0.5 block font-display text-[0.875rem] font-bold text-fg leading-snug hover:text-accent line-clamp-2"
                   >
                     {p.title}
                   </Link>

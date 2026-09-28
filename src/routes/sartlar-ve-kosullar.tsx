@@ -2,7 +2,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
-export const Route = createFileRoute("/sartlar-ve-kosullar")({ component: TermsPage });
+export const Route = createFileRoute("/sartlar-ve-kosullar")({
+  head: () => ({
+    meta: [
+      { title: "Şartlar ve Koşullar - Ya Olmasaydı" },
+      {
+        name: "description",
+        content:
+          "yaolmasaydi.com kullanım koşulları, telif hakları ve yasal sorumluluklar hakkında detaylı şartlar ve koşullar.",
+      },
+      { property: "og:title", content: "Şartlar ve Koşullar - Ya Olmasaydı" },
+      { property: "og:url", content: "https://yaolmasaydi.com/sartlar-ve-kosullar" },
+    ],
+    links: [{ rel: "canonical", href: "https://yaolmasaydi.com/sartlar-ve-kosullar" }],
+  }),
+  component: TermsPage,
+});
 
 function TermsPage() {
   return (

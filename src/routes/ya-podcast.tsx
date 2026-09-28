@@ -2,7 +2,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
-export const Route = createFileRoute("/ya-podcast")({ component: PodcastPage });
+export const Route = createFileRoute("/ya-podcast")({
+  head: () => ({
+    meta: [
+      { title: "Ya Olmasaydı Podcast - Dinle" },
+      {
+        name: "description",
+        content:
+          "Ya Olmasaydı serisinin sesli hali: Bilim, tarih, evren ve alternatif dünyalar hakkında sesli bölümler.",
+      },
+      { property: "og:title", content: "Ya Olmasaydı Podcast - Dinle" },
+      { property: "og:url", content: "https://yaolmasaydi.com/ya-podcast" },
+    ],
+    links: [{ rel: "canonical", href: "https://yaolmasaydi.com/ya-podcast" }],
+  }),
+  component: PodcastPage,
+});
 
 function PodcastPage() {
   return (

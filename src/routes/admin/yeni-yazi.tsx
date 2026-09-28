@@ -35,6 +35,12 @@ export const Route = createFileRoute("/admin/yeni-yazi")({
     ]);
     return { categories, authors };
   },
+  head: () => ({
+    meta: [
+      { title: "Yeni Yazı Ekle - Yönetim Paneli" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   component: NewPostPage,
 });
 

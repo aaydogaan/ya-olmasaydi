@@ -10,6 +10,30 @@ export const Route = createFileRoute("/kategori/$slug")({
     if (!cat) throw notFound();
     return { cat, posts: getPostsByCategory(params.slug) };
   },
+  head: ({ loaderData }) => {
+    const cat = loaderData?.cat;
+    if (!cat) return {};
+    const title = `${cat.name} - Ya Olmasaydı`;
+    const description =
+      cat.description ||
+      `${cat.name} kategorisindeki tüm 'Ya Olmasaydı' senaryoları ve özgün içerikleri keşfedin.`;
+    const canonical = `https://yaolmasaydi.com/kategori/${cat.slug}`;
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: canonical },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+    };
+  },
   component: CategoryPage,
 });
 

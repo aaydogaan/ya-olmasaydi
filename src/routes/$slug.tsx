@@ -36,6 +36,31 @@ export const Route = createFileRoute("/$slug")({
       ? post.image
       : `https://cdn.yaolmasaydi.com/${cleanImg}`;
     const canonical = `https://yaolmasaydi.com/${post.slug}`;
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: desc,
+      image: [imgUrl],
+      datePublished: post.publishedAt,
+      dateModified: post.publishedAt,
+      author: {
+        "@type": "Person",
+        name: AUTHORS[post.author]?.name || "Recep Aydoğan",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Ya Olmasaydı",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://yaolmasaydi.com/images/logo.png",
+        },
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonical,
+      },
+    };
 
     return {
       meta: [
@@ -52,6 +77,12 @@ export const Route = createFileRoute("/$slug")({
         { name: "twitter:image", content: imgUrl },
       ],
       links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(jsonLd),
+        },
+      ],
     };
   },
   component: PostPage,

@@ -39,6 +39,12 @@ export const Route = createFileRoute("/admin/duzenle/$id")({
 
     return { post, categories, authors };
   },
+  head: () => ({
+    meta: [
+      { title: "Yazı Düzenle - Yönetim Paneli" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   component: EditPostPage,
 });
 

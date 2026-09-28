@@ -51,13 +51,14 @@ for (const c of categories) {
 for (const post of posts) {
   const lastmod = (post.updated_at || post.created_at || '').split(' ')[0] || '2024-05-01';
   xml += `  <url>
-    <loc>${BASE_URL}/${post.slug}/</loc>
+    <loc>${BASE_URL}/${post.slug}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>`;
 
   if (post.image) {
-    const imgUrl = `${BASE_URL}/uploads/${post.image}`;
+    const cleanImg = (post.image || '').replace(/^\/?uploads\//, '');
+    const imgUrl = post.image.startsWith('http') ? post.image : `https://cdn.yaolmasaydi.com/${cleanImg}`;
     xml += `
     <image:image>
       <image:loc>${imgUrl}</image:loc>
@@ -78,6 +79,8 @@ console.log(`✅ public/sitemap.xml oluşturuldu! (${posts.length} yazı, ${cate
 // Also generate clean robots.txt
 const robotsTxt = `User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
 
 Sitemap: ${BASE_URL}/sitemap.xml
 `;

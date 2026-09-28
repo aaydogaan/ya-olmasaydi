@@ -12,6 +12,34 @@ export const Route = createFileRoute("/")({
     const dbPosts = await getPublicAllPostsAction();
     return { dbPosts };
   },
+  head: () => ({
+    meta: [
+      { title: "Ya Olmasaydı - Dünyanın En İlginç Alternatif Senaryoları" },
+      {
+        name: "description",
+        content:
+          "Hazır olun, dünyanın en ilginç hikayeleri sizlerle! Bilim, tarih, kültür ve evren hakkında 'Ya Olmasaydı' serisinde sıra dışı alternatif senaryoları keşfedin.",
+      },
+      { property: "og:title", content: "Ya Olmasaydı - Dünyanın En İlginç Alternatif Senaryoları" },
+      {
+        property: "og:description",
+        content:
+          "Hazır olun, dünyanın en ilginç hikayeleri sizlerle! Bilim, tarih, kültür ve evren hakkında 'Ya Olmasaydı' serisinde sıra dışı alternatif senaryoları keşfedin.",
+      },
+      { property: "og:url", content: "https://yaolmasaydi.com/" },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://yaolmasaydi.com/images/og.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Ya Olmasaydı - Dünyanın En İlginç Alternatif Senaryoları" },
+      {
+        name: "twitter:description",
+        content:
+          "Hazır olun, dünyanın en ilginç hikayeleri sizlerle! Bilim, tarih, kültür ve evren hakkında 'Ya Olmasaydı' serisinde sıra dışı alternatif senaryoları keşfedin.",
+      },
+      { name: "twitter:image", content: "https://yaolmasaydi.com/images/og.jpg" },
+    ],
+    links: [{ rel: "canonical", href: "https://yaolmasaydi.com/" }],
+  }),
   component: Home,
 });
 

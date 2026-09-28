@@ -3,6 +3,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  ScrollRestoration,
 } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
@@ -25,9 +26,10 @@ export const Route = createRootRoute({
       { name: "theme-color", content: "#ffffff" },
     ],
     links: [
-      { rel: "icon", type: "image/png", href: "/images/yaolmasayd%C4%B1-favicon.png" },
-      { rel: "shortcut icon", href: "/images/yaolmasayd%C4%B1-favicon.png" },
-      { rel: "apple-touch-icon", href: "/images/yaolmasayd%C4%B1-favicon.png" },
+      { rel: "icon", type: "image/png", href: "/images/favicon.png" },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", href: "/images/favicon.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
@@ -40,6 +42,22 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: APP_NAME,
+          url: "https://yaolmasaydi.com/",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://yaolmasaydi.com/ara?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+    ],
   }),
   component: () => (
     <html lang="tr" suppressHydrationWarning>
@@ -50,6 +68,7 @@ export const Route = createRootRoute({
         <PreviewHostBridge />
         <AuthProvider>
           <Outlet />
+          <ScrollRestoration />
           <Toaster position="bottom-center" richColors />
         </AuthProvider>
         <Scripts />

@@ -4,6 +4,12 @@ import { Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2 } from "lucide-reac
 import { adminLoginAction } from "@/lib/admin-actions";
 
 export const Route = createFileRoute("/admin/login")({
+  head: () => ({
+    meta: [
+      { title: "Yönetici Girişi - Ya Olmasaydı" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   component: AdminLoginPage,
 });
 
