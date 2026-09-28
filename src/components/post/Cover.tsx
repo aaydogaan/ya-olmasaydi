@@ -37,11 +37,6 @@ export function Cover({
           )}
           loading="lazy"
         />
-        {mark ? (
-          <span className="absolute bottom-3 left-3 z-10 rounded bg-black/50 px-2 py-0.5 font-display text-[0.65rem] font-semibold tracking-[0.18em] text-white/90 uppercase drop-shadow backdrop-blur-xs">
-            Ya Olmasaydı
-          </span>
-        ) : null}
       </div>
     );
   }
@@ -78,11 +73,6 @@ export function Cover({
           ?
         </text>
       </svg>
-      {mark ? (
-        <span className="absolute bottom-3 left-3 z-10 font-display text-[0.65rem] font-semibold tracking-[0.18em] text-inverse/70 uppercase">
-          Ya Olmasaydı
-        </span>
-      ) : null}
     </div>
   );
 }

@@ -437,19 +437,25 @@
 }
 
 :root {
-  --carousel-cols: 1;
+  --carousel-cols: 1.15;
   --carousel-gap: 10px;
 }
 @media (min-width: 640px) {
   :root {
-    --carousel-cols: 2;
-    --carousel-gap: 14px;
+    --carousel-cols: 2.3;
+    --carousel-gap: 12px;
   }
 }
 @media (min-width: 1024px) {
   :root {
-    --carousel-cols: 4;
+    --carousel-cols: 4.5;
     --carousel-gap: 14px;
+  }
+}
+@media (min-width: 1440px) {
+  :root {
+    --carousel-cols: 5;
+    --carousel-gap: 16px;
   }
 }
 

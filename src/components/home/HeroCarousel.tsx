@@ -140,7 +140,7 @@ export function HeroCarousel() {
         <div
           className="flex gap-2.5 md:gap-3.5"
           style={{
-            transform: `translateX(calc(-${currentIndex} * (100% + var(--carousel-gap, 14px)) / var(--carousel-cols, 4)))`,
+            transform: `translateX(calc(-${currentIndex} * (100% + var(--carousel-gap, 14px)) / var(--carousel-cols)))`,
             transition: isTransitioning
               ? "transform 650ms cubic-bezier(0.25, 1, 0.5, 1)"
               : "none",
@@ -158,8 +158,8 @@ export function HeroCarousel() {
                 <Link
                   to="/$slug"
                   params={{ slug: slide.slug }}
-                  className="relative block size-full overflow-hidden rounded-[16px] border-[3px] border-white shadow-md group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                  style={{ aspectRatio: "1 / 1" }}
+                  className="relative block size-full overflow-hidden rounded-[14px] border-[2.5px] border-white shadow-md group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  style={{ aspectRatio: "1 / 0.94" }}
                 >
                   <Cover
                     category={slide.category}
@@ -169,25 +169,25 @@ export function HeroCarousel() {
                     mark={false}
                     zoomOnHover={false}
                   />
-                  <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/35 to-transparent p-4 text-inverse md:p-5">
+                  <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/30 to-transparent p-3.5 text-inverse md:p-4">
                     <span
-                      className="cat-pill text-[9px] px-2 py-0.5 mb-2 w-fit"
+                      className="cat-pill text-[9px] px-2 py-0.5 mb-1.5 w-fit"
                       data-cat={slide.category}
                     >
                       {cat?.name}
                     </span>
-                    <h3 className="font-display text-[1.25rem] leading-snug font-semibold text-white drop-shadow-sm md:text-[1.45rem] line-clamp-2">
+                    <h3 className="font-display text-[1.05rem] leading-snug font-semibold text-white drop-shadow-sm md:text-[1.22rem] line-clamp-2">
                       {slide.title}
                     </h3>
 
                     {/* Author Info */}
-                    <div className="mt-3 flex items-center gap-2.5">
-                      <Avatar slug={slide.author} size={36} link={false} />
-                      <div className="text-[0.75rem] leading-tight text-white">
+                    <div className="mt-2.5 flex items-center gap-2">
+                      <Avatar slug={slide.author} size={30} link={false} />
+                      <div className="text-[0.72rem] leading-tight text-white">
                         <p className="font-medium italic text-white/90">
                           tarafından {author?.name || "Recep Aydoğan"}
                         </p>
-                        <p className="text-[0.7rem] text-white/75 mt-0.5">
+                        <p className="text-[0.68rem] text-white/75 mt-0.5">
                           {formatRelativeTr(slide.publishedAt)}
                         </p>
                       </div>
