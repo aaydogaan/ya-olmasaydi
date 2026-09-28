@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { IconClock } from "@/components/icons";
+import React, { useEffect, useState, FormEvent } from "react";
+import { Link, createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
+import { IconArrow, IconClock, IconFacebook, IconInstagram, IconX } from "@/components/icons";
+import { AwardCard } from "@/components/home/AwardCard";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Avatar } from "@/components/post/Avatar";
 import { CommentBox } from "@/components/post/CommentBox";
@@ -11,8 +12,9 @@ import {
   getPost,
   readTime,
   relatedPosts,
+  POSTS,
 } from "@/data/posts";
-import { AUTHORS, getCategory } from "@/data/site";
+import { AUTHORS, SITE, getCategory } from "@/data/site";
 import { getPublicPostAction } from "@/lib/public-actions";
 
 export const Route = createFileRoute("/$slug")({
@@ -101,6 +103,14 @@ export const Route = createFileRoute("/$slug")({
 
 function PostPage() {
   const { post } = Route.useLoaderData();
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
+
+  function handleSearch(e: FormEvent) {
+    e.preventDefault();
+    if (q.trim()) navigate({ to: "/ara", search: { q: q.trim() } });
+  }
+
   const cat = getCategory(post.category);
   const author = AUTHORS[post.author as keyof typeof AUTHORS] || {
     name: "Recep Aydoğan",
@@ -111,7 +121,13 @@ function PostPage() {
     avatar: "/images/Recep-rastgel.webp",
   };
   const minutes = readTime(post);
-  const related = relatedPosts(post);
+
+  // Guarantee 4 related posts for bottom section and sidebar
+  const sameCat = POSTS.filter((p) => p.slug !== post.slug && p.category === post.category);
+  const diffCat = POSTS.filter((p) => p.slug !== post.slug && p.category !== post.category);
+  const bottomRelated = [...sameCat, ...diffCat].slice(0, 4);
+  const sidebarRelated = [...sameCat, ...diffCat].slice(0, 4);
+
   const url = typeof window !== "undefined" ? window.location.href : `https://yaolmasaydi.com/${post.slug}`;
 
   // Update document title for client-side navigation
@@ -203,58 +219,181 @@ function PostPage() {
               </div>
             </div>
 
+            {/* Benzer Yazılar (Bottom Section - 4 Posts) */}
+            <div className="mt-12 border-t border-line/80 pt-8">
+              <h3 className="mb-6 font-display text-xl font-semibold text-fg">
+                Benzer Yazılar
+              </h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {bottomRelated.map((p) => {
+                  const rCat = getCategory(p.category);
+                  const rCleanImg = (p.image || "").replace(/^\/?uploads\//, "");
+                  const rImg = !p.image
+                    ? null
+                    : p.image.startsWith("http")
+                    ? p.image
+                    : `https://cdn.yaolmasaydi.com/${rCleanImg}`;
+                  return (
+                    <Link
+                      key={p.slug}
+                      to="/$slug"
+                      params={{ slug: p.slug }}
+                      className="group flex flex-col overflow-hidden rounded-xl border border-line bg-paper p-3 transition-all hover:-translate-y-1 hover:shadow-md"
+                    >
+                      <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-neutral-900 border border-white/20">
+                        {rImg ? (
+                          <img
+                            src={rImg}
+                            alt={p.title}
+                            className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="flex size-full items-center justify-center font-bold text-orange-500">
+                            ?
+                          </div>
+                        )}
+                      </div>
+                      <div className="mt-2.5 flex-1 flex flex-col justify-between">
+                        <div>
+                          <span
+                            className="cat-pill text-[9px] px-1.5 py-0.5 mb-1 inline-block"
+                            data-cat={p.category}
+                          >
+                            {rCat?.name}
+                          </span>
+                          <h4 className="font-display text-sm font-bold text-fg leading-snug group-hover:text-accent line-clamp-2">
+                            {p.title}
+                          </h4>
+                        </div>
+                        <p className="mt-2 text-[0.72rem] text-muted">
+                          {AUTHORS[p.author]?.name || "Recep Aydoğan"} · {formatRelativeTr(p.publishedAt)}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Comments Box */}
             <CommentBox slug={post.slug} seed={post.comments} />
           </div>
 
-          {/* Related Posts Sidebar with Thumbnails */}
-          <aside className="space-y-6">
-            <h3 className="font-display text-lg font-semibold border-b border-line pb-2">
-              Benzer Yazılar
-            </h3>
-            <div className="space-y-3.5">
-              {related.map((p) => {
-                const rCat = getCategory(p.category);
-                const rCleanImg = (p.image || "").replace(/^\/?uploads\//, "");
-                const rImg = !p.image
-                  ? null
-                  : p.image.startsWith("http")
-                  ? p.image
-                  : `https://cdn.yaolmasaydi.com/${rCleanImg}`;
+          {/* Right Sidebar */}
+          <aside className="space-y-8">
+            {/* Sıra Sende! Search */}
+            <section>
+              <h3 className="mb-4 font-display text-[1.4rem] font-semibold">Sıra Sende!</h3>
+              <form
+                onSubmit={handleSearch}
+                className="flex items-center gap-2 rounded-full border border-line bg-paper px-4 py-1.5"
+              >
+                <input
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder="Ne olmasaydı?"
+                  className="min-w-0 flex-1 border-0 bg-transparent py-2 text-sm outline-none"
+                  aria-label="Ne olmasaydı?"
+                />
+                <button
+                  type="submit"
+                  className="flex size-9 items-center justify-center rounded-full bg-brand text-inverse cursor-pointer"
+                  aria-label="Gönder"
+                >
+                  <IconArrow className="size-4" />
+                </button>
+              </form>
+            </section>
 
-                return (
-                  <Link
-                    key={p.slug}
-                    to="/$slug"
-                    params={{ slug: p.slug }}
-                    className="flex items-center gap-3 rounded-xl bg-paper p-2.5 transition-colors hover:bg-neutral-100 group border border-line/40"
-                  >
-                    <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-neutral-900 border border-white/20">
-                      {rImg ? (
-                        <img
-                          src={rImg}
-                          alt={p.title}
-                          className="size-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="flex size-full items-center justify-center font-bold text-orange-500 text-xs">
-                          ?
-                        </div>
-                      )}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <span className="cat-pill mb-1 text-[0.6rem]" data-cat={p.category}>
-                        {rCat?.name}
-                      </span>
-                      <p className="font-display text-xs font-semibold leading-snug text-fg group-hover:text-accent line-clamp-2">
-                        {p.title}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+            {/* Takip Et */}
+            <section>
+              <p className="text-xs tracking-wide text-muted">Bize Katılın</p>
+              <h3 className="mb-3 font-display text-lg font-semibold">Takip Et</h3>
+              <div className="flex gap-2">
+                <a
+                  href={SITE.social.x}
+                  className="social-round"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="X"
+                >
+                  <IconX className="size-3.5" />
+                </a>
+                <a
+                  href={SITE.social.facebook}
+                  className="social-round bg-fb"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Facebook"
+                >
+                  <IconFacebook className="size-3.5" />
+                </a>
+                <a
+                  href={SITE.social.instagram}
+                  className="social-round bg-linear-to-br from-ig-from via-pin to-cat-kultur"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                >
+                  <IconInstagram className="size-3.5" />
+                </a>
+              </div>
+            </section>
+
+            <AwardCard />
+
+            {/* Benzer Yazılar Sidebar */}
+            <section>
+              <p className="text-xs text-muted">Aynı kategorideki içerikler</p>
+              <h3 className="mb-4 font-display text-lg font-semibold">Benzer Yazılar</h3>
+              <div className="space-y-3.5">
+                {sidebarRelated.map((p) => {
+                  const rCat = getCategory(p.category);
+                  const rCleanImg = (p.image || "").replace(/^\/?uploads\//, "");
+                  const rImg = !p.image
+                    ? null
+                    : p.image.startsWith("http")
+                    ? p.image
+                    : `https://cdn.yaolmasaydi.com/${rCleanImg}`;
+
+                  return (
+                    <Link
+                      key={p.slug}
+                      to="/$slug"
+                      params={{ slug: p.slug }}
+                      className="flex items-center gap-3 rounded-xl bg-paper p-2.5 transition-colors hover:bg-neutral-100 group border border-line/40"
+                    >
+                      <div className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-neutral-900 border-2 border-white shadow-sm">
+                        {rImg ? (
+                          <img
+                            src={rImg}
+                            alt={p.title}
+                            className="size-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="flex size-full items-center justify-center font-bold text-orange-500 text-xs">
+                            ?
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <span
+                          className="cat-pill text-[9px] px-1.5 py-0.5 mb-1 inline-block"
+                          data-cat={p.category}
+                        >
+                          {rCat?.name}
+                        </span>
+                        <p className="font-display text-[0.85rem] font-bold leading-snug text-fg group-hover:text-accent line-clamp-2">
+                          {p.title}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
           </aside>
         </div>
       </article>

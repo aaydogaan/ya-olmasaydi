@@ -276,7 +276,7 @@ export function Footer() {
           <p>{SITE.copyright}</p>
 
           <div className="flex items-center gap-1.5 text-xs">
-            <span>Site Sahibi & Kurucusu:</span>
+            <span>Geliştirici:</span>
             <a
               href="https://www.instagram.com/recepaydogaann"
               target="_blank"
