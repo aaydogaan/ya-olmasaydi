@@ -15,7 +15,9 @@ export const Route = createFileRoute("/page/$page")({
     if (pageNum === 1) throw redirect({ to: "/" });
 
     const dbPosts = await getPublicAllPostsAction();
-    const allPosts = dbPosts || POSTS;
+    const allPosts = (dbPosts && dbPosts.length > 0 ? dbPosts : POSTS)
+      .slice()
+      .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
     const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 
     if (pageNum > totalPages) throw notFound();

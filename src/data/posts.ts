@@ -11142,9 +11142,9 @@ export function homepagePosts() {
 }
 
 export function heroPosts() {
-  const heroes = POSTS.filter((p) => p.hero);
+  const heroes = POSTS.filter((p) => p.hero).sort(byDate);
   if (heroes.length > 0) return heroes;
-  return POSTS.slice(0, 8);
+  return [...POSTS].sort(byDate).slice(0, 8);
 }
 
 export function latestPosts(n = 5) {
@@ -11152,15 +11152,15 @@ export function latestPosts(n = 5) {
 }
 
 export function featuredPosts() {
-  return POSTS.slice(0, 4);
+  return [...POSTS].sort(byDate).slice(0, 4);
 }
 
 export function editorPicks() {
-  return POSTS.slice(4, 7);
+  return [...POSTS].sort(byDate).slice(4, 7);
 }
 
 export function likedPosts() {
-  return POSTS.slice(7, 10);
+  return [...POSTS].sort(byDate).slice(7, 10);
 }
 
 export function relatedPosts(post: Post, n = 3) {

@@ -47,7 +47,9 @@ const POSTS_PER_PAGE = 10;
 
 function Home() {
   const { dbPosts } = Route.useLoaderData();
-  const allPosts = dbPosts || POSTS;
+  const allPosts = (dbPosts && dbPosts.length > 0 ? dbPosts : POSTS)
+    .slice()
+    .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
   const postsToShow = allPosts.slice(0, POSTS_PER_PAGE);
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 

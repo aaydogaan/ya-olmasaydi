@@ -122,9 +122,10 @@ function PostPage() {
   };
   const minutes = readTime(post);
 
-  // Guarantee 4 related posts for bottom section and sidebar
-  const sameCat = POSTS.filter((p) => p.slug !== post.slug && p.category === post.category);
-  const diffCat = POSTS.filter((p) => p.slug !== post.slug && p.category !== post.category);
+  // Guarantee 4 related posts for bottom section and sidebar (newest first)
+  const sortedAll = [...POSTS].sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
+  const sameCat = sortedAll.filter((p) => p.slug !== post.slug && p.category === post.category);
+  const diffCat = sortedAll.filter((p) => p.slug !== post.slug && p.category !== post.category);
   const bottomRelated = [...sameCat, ...diffCat].slice(0, 4);
   const sidebarRelated = [...sameCat, ...diffCat].slice(0, 4);
 
