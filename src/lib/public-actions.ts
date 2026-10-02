@@ -3,11 +3,26 @@ import { getAdminPost } from "./admin-db";
 import { getPost } from "@/data/posts";
 import type { AuthorSlug } from "@/data/site";
 
+async function withTimeout<T>(promise: Promise<T>, ms: number = 1000): Promise<T | null> {
+  let timer: any;
+  const timeoutPromise = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), ms);
+  });
+  try {
+    const result = await Promise.race([promise, timeoutPromise]);
+    clearTimeout(timer);
+    return result;
+  } catch (e) {
+    clearTimeout(timer);
+    return null;
+  }
+}
+
 export const getPublicPostAction = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
     try {
-      const dbPost = await getAdminPost(slug);
+      const dbPost = await withTimeout(getAdminPost(slug), 1000);
       if (dbPost && dbPost.is_published) {
         return {
           slug: dbPost.slug,
@@ -44,7 +59,7 @@ export const getPublicAllPostsAction = createServerFn({ method: "GET" })
   .handler(async () => {
     try {
       const { getAdminPosts } = await import("./admin-db");
-      const dbRes = await getAdminPosts({ limit: 120 });
+      const dbRes = await withTimeout(getAdminPosts({ limit: 120 }), 1000);
       if (dbRes && dbRes.items && dbRes.items.length > 0) {
         return dbRes.items.map((p) => ({
           slug: p.slug,

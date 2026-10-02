@@ -10,9 +10,14 @@ function getPool() {
     pool = new pg.Pool({
       connectionString,
       max: 5,
+      connectionTimeoutMillis: 2000,
+      idleTimeoutMillis: 10000,
       ssl: connectionString.includes("sslmode=require") || connectionString.includes("supabase.co")
         ? { rejectUnauthorized: false }
         : false,
+    });
+    pool.on("error", (err) => {
+      console.error("[pg pool error]", err.message);
     });
   }
   return pool;
