@@ -1,3 +1,4 @@
+import React from "react";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Avatar } from "@/components/post/Avatar";
