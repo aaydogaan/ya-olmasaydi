@@ -3,10 +3,10 @@ FROM node:22-alpine
 WORKDIR /app
 
 # 1. Paket tanımlarını kopyala
-COPY package.json ./
+COPY package*.json ./
 
-# 2. Paketleri temiz ve sorunsuz kur
-RUN npm install
+# 2. Paketleri temiz ve sorunsuz kur (React 19 peer-deps çözümü)
+RUN npm install --legacy-peer-deps
 
 # 3. Tüm kaynak kodları kopyala
 COPY . .
