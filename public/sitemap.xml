@@ -93,6 +93,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://yaolmasaydi.com/author/recep</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yaolmasaydi.com/author/selman</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://yaolmasaydi.com/ya-renkler-olmasaydi</loc>
     <lastmod>2025-05-13</lastmod>
     <changefreq>monthly</changefreq>

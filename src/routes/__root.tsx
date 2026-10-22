@@ -69,14 +69,42 @@ export const Route = createRootRoute({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: APP_NAME,
-          url: "https://yaolmasaydi.com/",
-          potentialAction: {
-            "@type": "SearchAction",
-            target: "https://yaolmasaydi.com/ara?q={search_term_string}",
-            "query-input": "required name=search_term_string",
-          },
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://yaolmasaydi.com/#organization",
+              name: APP_NAME,
+              url: "https://yaolmasaydi.com/",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://yaolmasaydi.com/images/logo.png",
+                width: 400,
+                height: 150,
+              },
+              sameAs: [
+                "https://x.com/yaolmasaydicom/",
+                "https://www.facebook.com/people/Ya-Olmasayd%C4%B1/61560369372118/",
+                "https://www.instagram.com/yaolmasaydicom/",
+              ],
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://yaolmasaydi.com/#website",
+              url: "https://yaolmasaydi.com/",
+              name: APP_NAME,
+              description:
+                "Hazır olun, dünyanın en ilginç hikayeleri sizlerle! Ya Olmasaydı serisinde sıra dışı konuları keşfedin.",
+              publisher: {
+                "@id": "https://yaolmasaydi.com/#organization",
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://yaolmasaydi.com/ara?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+              inLanguage: "tr",
+            },
+          ],
         }),
       },
     ],

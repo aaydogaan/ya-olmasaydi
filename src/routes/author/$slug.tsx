@@ -17,10 +17,38 @@ export const Route = createFileRoute("/author/$slug")({
     return {
       meta: [
         { title: `${author.name} Yazıları - Ya Olmasaydı` },
-        { name: "description", content: `${author.name} tarafından kaleme alınan tüm yazılar ve senaryolar.` },
+        {
+          name: "description",
+          content: `${author.name} tarafından kaleme alınan tüm yazılar ve senaryolar.`,
+        },
         { property: "og:title", content: `${author.name} Yazıları - Ya Olmasaydı` },
+        {
+          property: "og:description",
+          content: `${author.name} tarafından kaleme alınan tüm yazılar ve senaryolar.`,
+        },
+        {
+          property: "og:url",
+          content: `https://yaolmasaydi.com/author/${author.slug}`,
+        },
+        { property: "og:type", content: "profile" },
+        {
+          property: "og:image",
+          content: `https://yaolmasaydi.com${author.avatar}`,
+        },
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:title", content: `${author.name} Yazıları - Ya Olmasaydı` },
+        {
+          name: "twitter:description",
+          content: `${author.name} tarafından kaleme alınan tüm yazılar ve senaryolar.`,
+        },
+        {
+          name: "twitter:image",
+          content: `https://yaolmasaydi.com${author.avatar}`,
+        },
       ],
-      links: [{ rel: "canonical", href: `https://yaolmasaydi.com/author/${author.slug}` }],
+      links: [
+        { rel: "canonical", href: `https://yaolmasaydi.com/author/${author.slug}` },
+      ],
     };
   },
   component: AuthorPage,

@@ -55,6 +55,9 @@ function Home() {
 
   return (
     <SiteLayout>
+      <h1 className="sr-only">
+        Ya Olmasaydı - Dünyanın En İlginç Alternatif Senaryoları
+      </h1>
       <HeroCarousel />
       <div className="site-wrap py-8">
         <h2 className="mb-6 font-display text-[1.65rem] font-semibold text-fg">
