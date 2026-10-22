@@ -26,7 +26,7 @@ export const Route = createFileRoute("/$slug")({
   head: ({ loaderData }) => {
     const post = loaderData?.post;
     if (!post) return {};
-    const title = `${post.title} - Ya Olmasaydı`;
+    const title = post.seo?.title || `${post.title} - Ya Olmasaydı`;
     const desc =
       post.seo?.description ||
       post.excerpt ||
@@ -38,30 +38,73 @@ export const Route = createFileRoute("/$slug")({
       ? post.image
       : `https://cdn.yaolmasaydi.com/${cleanImg}`;
     const canonical = `https://yaolmasaydi.com/${post.slug}`;
+    const cat = getCategory(post.category);
+    const authorObj = AUTHORS[post.author as keyof typeof AUTHORS] || {
+      name: "Recep Aydoğan",
+      slug: "recep",
+      role: "Kurucu & Yazar",
+    };
+
     const jsonLd = {
       "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      headline: post.title,
-      description: desc,
-      image: [imgUrl],
-      datePublished: post.publishedAt,
-      dateModified: post.publishedAt,
-      author: {
-        "@type": "Person",
-        name: AUTHORS[post.author]?.name || "Recep Aydoğan",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "Ya Olmasaydı",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://yaolmasaydi.com/images/logo.png",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "@id": `${canonical}#article`,
+          isPartOf: {
+            "@type": "WebPage",
+            "@id": canonical,
+          },
+          headline: post.title,
+          description: desc,
+          image: [imgUrl],
+          datePublished: post.publishedAt,
+          dateModified: post.publishedAt,
+          inLanguage: "tr",
+          mainEntityOfPage: canonical,
+          articleSection: cat?.name || "Genel",
+          keywords: (post.tags || []).join(", "),
+          author: {
+            "@type": "Person",
+            name: authorObj.name,
+            url: `https://yaolmasaydi.com/author/${authorObj.slug}`,
+            jobTitle: authorObj.role,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Ya Olmasaydı",
+            url: "https://yaolmasaydi.com/",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://yaolmasaydi.com/images/logo.png",
+            },
+          },
         },
-      },
-      mainEntityOfPage: {
-        "@type": "WebPage",
-        "@id": canonical,
-      },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${canonical}#breadcrumb`,
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Anasayfa",
+              item: "https://yaolmasaydi.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: cat?.name || "Kategori",
+              item: `https://yaolmasaydi.com/kategori/${post.category}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: post.title,
+              item: canonical,
+            },
+          ],
+        },
+      ],
     };
 
     return {
@@ -153,6 +196,20 @@ function PostPage() {
             className="absolute inset-0"
           />
           <div className="relative z-10 mx-auto flex min-h-[22rem] max-w-3xl flex-col justify-end px-5 py-12 text-inverse md:min-h-[28rem] md:py-16">
+            {/* Visual Breadcrumb for SEO & UX */}
+            <nav aria-label="Erişim Yolu" className="mb-3 flex items-center gap-1.5 text-xs text-white/85">
+              <Link to="/" className="hover:text-white transition-colors">
+                Anasayfa
+              </Link>
+              <span>›</span>
+              <Link
+                to="/kategori/$slug"
+                params={{ slug: post.category }}
+                className="hover:text-white transition-colors"
+              >
+                {cat?.name || "Kategori"}
+              </Link>
+            </nav>
             <Link
               to="/kategori/$slug"
               params={{ slug: post.category }}
